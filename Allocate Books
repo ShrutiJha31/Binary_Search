@@ -1,0 +1,41 @@
+bool isPossible(vector<int>a,int b, int p){
+    
+    int cnt=0;
+    int sum=0;
+    for(int i=0;i<a.size();i++)
+    {
+        if(sum+a[i]>p)
+        {
+            sum=a[i];
+            cnt++;
+            if(sum>p||cnt>b)
+            return false;
+        }
+        else
+        sum+=a[i];
+    }
+    if(cnt>=b)
+    return false;
+    return true;
+    
+}
+int Solution::books(vector<int> &a, int b) {
+    
+    int m=100000000;int sum=0;
+    if(a.size()<b)
+    return -1;
+    for(int i=0;i<a.size();i++)
+    m=min(a[i],m),sum+=a[i];
+    
+    int low =m;
+    int high=sum;
+    int ans=-1;
+    while(low<=high)
+    {
+        int mid=(low+high)/2;
+        if(isPossible(a,b,mid))
+        ans=mid,high=mid-1;
+        else low=mid+1;
+    }
+    return ans;
+}
