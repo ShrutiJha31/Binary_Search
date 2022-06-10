@@ -1,0 +1,37 @@
+bool isPossible(vector<int>p,int n,int c,int d)
+{
+    int cnt=1;
+    int start=0;
+    for(int i=1;i<p.size();i++)
+    {
+        if(p[i]-p[start]>=d)
+        {
+            //cout<<p[start]<<" "<<p[i]<<" ";
+            cnt++;
+            start=i;
+        }
+        
+    }
+    //cout<<d<<" "<<cnt<<endl;
+    if(cnt>=c)
+        return true;
+    return false;
+}
+int chessTournament(vector<int> p , int n ,  int c){
+sort(p.begin(),p.end());
+    int low = 0;
+    int high = p[n-1]-p[0];
+    int ans=-1;
+    while(low<=high)
+    {
+        int m = (high+low)/2;
+        if(isPossible(p,n,c,m))
+        {
+            ans=m;
+            low=m+1;
+        }
+        else
+            high =m-1;
+    }
+    return ans;
+}
